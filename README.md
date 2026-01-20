@@ -33,7 +33,7 @@ El enunciado pide `node inventario.js`. En esta entrega el archivo se llama `app
 
 ## Flujo (Mermaid)
 
-### mermaid
+```mermaid
 flowchart TD
   A[Inicio] --> B{Entorno}
   B -- Navegador --> C[UI: agregar/seleccionar producto]
