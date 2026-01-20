@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Inventario de productos con POO ES6+ (vanilla)." />
+    <title>InventarioProductos — POO ES6+</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+
+    <header class="topbar" role="banner">
+        <div class="container topbar__inner">
+            <div class="brand">
+                <span class="brand__dot" aria-hidden="true"></span>
+                <div>
+                    <p class="brand__title">InventarioProductos</p>
+                    <p class="brand__subtitle">Clases ES6+ · Métodos · Getter · Static · Arrow functions</p>
+                </div>
+            </div>
+
+            <div class="status" aria-live="polite" aria-atomic="true">
+                <span class="status__pill" id="statusPill">Listo</span>
+            </div>
+        </div>
+    </header>
+
+    <main id="main" class="container" role="main">
+        <section class="grid">
+            <!-- Card: Agregar productos -->
+            <article class="card">
+                <header class="card__header">
+                    <h1 class="card__title">Crear producto</h1>
+                    <p class="card__desc">Agrega productos al inventario y ejecuta acciones (vender/reponer).</p>
+                </header>
+
+                <div class="card__content">
+                    <div class="msg" id="msg" role="status" aria-live="polite"></div>
+
+                    <form id="formAdd" class="form" novalidate>
+                        <div class="field">
+                            <label class="label" for="nombre">Nombre</label>
+                            <input class="input" id="nombre" name="nombre" type="text" autocomplete="off"
+                                placeholder="Ej: Teclado" aria-describedby="helpNombre" />
+                            <small class="help" id="helpNombre">Nombre del producto (texto).</small>
+                            <p class="error" id="errNombre" aria-live="polite"></p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="precio">Precio</label>
+                            <input class="input" id="precio" name="precio" type="number" inputmode="numeric" min="0"
+                                step="1" placeholder="Ej: 25000" aria-describedby="helpPrecio" />
+                            <small class="help" id="helpPrecio">Precio entero (≥ 0).</small>
+                            <p class="error" id="errPrecio" aria-live="polite"></p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="stock">Stock</label>
+                            <input class="input" id="stock" name="stock" type="number" inputmode="numeric" min="0"
+                                step="1" placeholder="Ej: 10" aria-describedby="helpStock" />
+                            <small class="help" id="helpStock">Unidades disponibles (≥ 0).</small>
+                            <p class="error" id="errStock" aria-live="polite"></p>
+                        </div>
+
+                        <div class="actions">
+                            <button class="btn btn--primary" type="submit">Agregar</button>
+                            <button class="btn btn--ghost" type="button" id="btnReset">Reiniciar</button>
+                        </div>
+                    </form>
+
+                    <div class="hr"></div>
+
+                    <div class="row">
+                        <button class="btn" type="button" id="btnDemo">
+                            Cargar demo (Teclado/Mouse/Monitor)
+                        </button>
+
+                        <button class="btn" type="button" id="btnRunConsole">
+                            Ejecutar pruebas del enunciado (log)
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card: Inventario + acciones -->
+            <article class="card">
+                <header class="card__header">
+                    <h2 class="card__title">Inventario</h2>
+                    <p class="card__desc">Selecciona un producto y simula venta / reposición.</p>
+                </header>
+
+                <div class="card__content">
+                    <section class="panel" aria-label="Acciones">
+                        <div class="field">
+                            <label class="label" for="selectProd">Producto</label>
+                            <select class="input" id="selectProd" name="selectProd"></select>
+                            <small class="help">Se usa el getter <code>informacion</code> para mostrar datos.</small>
+                        </div>
+
+                        <div class="split">
+                            <div class="field">
+                                <label class="label" for="cantidad">Cantidad</label>
+                                <input class="input" id="cantidad" name="cantidad" type="number" inputmode="numeric"
+                                    min="1" step="1" placeholder="Ej: 3" />
+                                <p class="error" id="errCantidad" aria-live="polite"></p>
+                            </div>
+
+                            <div class="actions actions--end">
+                                <button class="btn btn--primary" type="button" id="btnVender">Vender</button>
+                                <button class="btn" type="button" id="btnReponer">Reponer</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="result" aria-label="Resultado">
+                        <h3 class="result__title">Salida</h3>
+                        <div class="result__box" id="output">
+                            <p class="result__placeholder">Aquí aparecerán los mensajes…</p>
+                        </div>
+                    </section>
+
+                    <section class="result" aria-label="Análisis">
+                        <h3 class="result__title">Herramientas</h3>
+
+                        <div class="row">
+                            <button class="btn" type="button" id="btnBajoStock">
+                                Filtrar bajo stock (&lt; 5)
+                            </button>
+                            <button class="btn" type="button" id="btnMasCaro">
+                                Comparar precio (1° vs 2°)
+                            </button>
+                            <button class="btn btn--ghost" type="button" id="btnClearLog">
+                                Limpiar salida
+                            </button>
+                        </div>
+
+                        <p class="hint">
+                            “Bajo stock” usa <code>filter</code> + <code>map</code> con arrow functions.
+                            “Más caro” usa el método estático <code>Producto.compararPrecio</code>.
+                        </p>
+                    </section>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container footer__inner">
+            <p class="footer__text">
+                Portafolio de clase — <strong>Rockwell Harrison Hernández</strong>
+            </p>
+            <p class="footer__text footer__muted">Vanilla JS · Dark UI · Accesible · Sin dependencias</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
