@@ -31,14 +31,22 @@ El enunciado pide `node inventario.js`. En esta entrega el archivo se llama `app
 
 ---
 
-## Flujo (Mermaid)
-
 ```mermaid
 flowchart TD
-  A[Inicio] --> B{OK?}
-  B -- Sí --> C[Fin]
-  B -- No --> D[Error]
-
+  A[Inicio] --> B{Entorno}
+  B -- Navegador --> C[UI: agregar/seleccionar producto]
+  C --> D{Acción}
+  D -->|Vender| E[Producto.vender(cantidad)]
+  D -->|Reponer| F[Producto.reponer(cantidad)]
+  D -->|Bajo stock| G[filter + map (arrow functions)]
+  D -->|Comparar| H[Producto.compararPrecio(a,b)]
+  E --> I[Actualizar inventario + mostrar salida]
+  F --> I
+  G --> I
+  H --> I
+  B -- Node --> J[Demo en consola: console.log]
+  J --> K[Fin]
+```
 
 ## Estructura del proyecto
 
