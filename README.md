@@ -31,6 +31,16 @@ El enunciado pide `node inventario.js`. En esta entrega el archivo se llama `app
 
 ---
 
+## Estructura del proyecto
+
+InventarioProductos/
+├─ index.html
+├─ styles.css
+├─ app.js
+└─ README.md
+
+
+## Flujo (Mermaid)
 ```mermaid
 flowchart TD
   A[Inicio] --> B{Entorno}
@@ -46,13 +56,8 @@ flowchart TD
   H --> I
   B -- Node --> J[Demo en consola: console.log]
   J --> K[Fin]
-```
 
-## Estructura del proyecto
+---
 
-InventarioProductos/
-├─ index.html
-├─ styles.css
-├─ app.js
-└─ README.md
+
 
